@@ -13,6 +13,7 @@ export function BookingSummary({
   services,
   whatsappNumber,
   siteMode,
+  bookingCode,
 }: {
   values: BookingFormValues;
   onBack: () => void;
@@ -20,6 +21,7 @@ export function BookingSummary({
   services: Service[];
   whatsappNumber: string | null;
   siteMode: "demo" | "live";
+  bookingCode: string | null;
 }) {
   const vehicle = vehicles.find((v) => v.id === values.vehicleId);
   const service = services.find((s) => s.id === values.service);
@@ -35,6 +37,7 @@ export function BookingSummary({
           notes: values.notes,
           vehicle,
           serviceName: service.shortName,
+          bookingCode: bookingCode ?? undefined,
         })
       : "";
   const whatsappUrl = whatsappNumber
@@ -44,11 +47,17 @@ export function BookingSummary({
   return (
     <div>
       <h3 className="text-xl font-semibold text-slate-900">
-        Periksa Kembali Pemesanan Anda
+        Permintaan Tercatat
       </h3>
       <p className="mt-2 text-sm leading-6 text-slate-600">
-        Pastikan data di bawah sudah benar sebelum membuka WhatsApp.
+        Permintaan Anda sudah tersimpan. Simpan kode berikut untuk referensi:
       </p>
+
+      {bookingCode && (
+        <p className="mt-4 rounded-lg bg-teal-50 px-4 py-3 text-center text-lg font-mono font-semibold tracking-widest text-teal-800">
+          {bookingCode}
+        </p>
+      )}
 
       <dl className="mt-6 divide-y divide-slate-200 rounded-2xl border border-slate-200">
         <SummaryRow label="Nama" value={values.name} />
@@ -64,9 +73,8 @@ export function BookingSummary({
       </dl>
 
       <p className="mt-4 text-sm leading-6 text-slate-600">
-        Membuka WhatsApp tidak berarti pesan sudah terkirim atau pemesanan
-        terkonfirmasi. Anda tetap perlu menekan tombol kirim, lalu menunggu
-        konfirmasi ketersediaan dan total biaya dari pengelola.
+        Permintaan belum terkonfirmasi. Lanjutkan ke WhatsApp untuk memberi tahu
+        pengelola, lalu tunggu konfirmasi ketersediaan dan total biaya.
       </p>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">

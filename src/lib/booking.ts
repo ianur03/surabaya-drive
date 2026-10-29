@@ -57,6 +57,7 @@ export type BookingMessageInput = {
   notes?: string;
   vehicle: Vehicle;
   serviceName: string;
+  bookingCode?: string;
 };
 
 export function buildWhatsAppMessage(data: BookingMessageInput): string {
@@ -73,6 +74,10 @@ export function buildWhatsAppMessage(data: BookingMessageInput): string {
 
   if (data.notes && data.notes.trim()) {
     lines.push(`Catatan: ${data.notes.trim()}`);
+  }
+
+  if (data.bookingCode) {
+    lines.push(`Kode permintaan: ${data.bookingCode}`);
   }
 
   lines.push("", "Mohon informasi ketersediaan mobil dan total biaya. Terima kasih.");

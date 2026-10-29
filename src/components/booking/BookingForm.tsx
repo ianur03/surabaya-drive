@@ -60,7 +60,7 @@ export function BookingForm({ form, onSubmit, vehicles, services }: Props) {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = form;
 
   const serviceValue = watch("service");
@@ -238,9 +238,10 @@ export function BookingForm({ form, onSubmit, vehicles, services }: Props) {
       <div className="mt-8">
         <button
           type="submit"
+          disabled={isSubmitting}
           className={buttonClass("primary", "lg", "w-full sm:w-auto")}
         >
-          Lanjutkan
+          {isSubmitting ? "Menyimpan…" : "Lanjutkan"}
         </button>
       </div>
     </form>

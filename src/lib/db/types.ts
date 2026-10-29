@@ -73,3 +73,21 @@ export type SiteSettingsRow = {
   og_image_url: string | null;
   updated_at: string;
 };
+
+export type BookingRow = {
+  id: string;
+  booking_code: string;
+  customer_name: string;
+  customer_phone: string;
+  vehicle_id: string;
+  service_type: ServiceType;
+  start_at: string;
+  end_at: string;
+  pickup_location: string;
+  customer_notes: string | null;
+  status: BookingStatus;
+  admin_notes: string | null;
+  quoted_total: number | null;
+  created_at: string;
+  updated_at: string;
+};
