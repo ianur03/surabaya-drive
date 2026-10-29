@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset supaya header sticky tidak menutupi judul section saat navigasi anchor */
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background-color: #ffffff;
+  color: #0f172a;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fokus keyboard selalu terlihat di seluruh elemen interaktif */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
