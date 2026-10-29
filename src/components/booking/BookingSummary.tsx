@@ -1,22 +1,23 @@
 "use client";
 
 import { getServiceById } from "@/data/services";
-import { getVehicleById } from "@/data/vehicles";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/booking";
 import { getWhatsAppNumber, isDemoWhatsAppNumber } from "@/lib/site";
 import { formatDateLong } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/button";
 
-import type { BookingFormValues } from "@/types/vehicle";
+import type { BookingFormValues, Vehicle } from "@/types/vehicle";
 
 export function BookingSummary({
   values,
   onBack,
+  vehicles,
 }: {
   values: BookingFormValues;
   onBack: () => void;
+  vehicles: Vehicle[];
 }) {
-  const vehicle = getVehicleById(values.vehicleId);
+  const vehicle = vehicles.find((v) => v.id === values.vehicleId);
   const service = getServiceById(values.service);
   const whatsappNumber = getWhatsAppNumber();
 

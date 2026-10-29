@@ -1,4 +1,6 @@
-import { createServerSupabase } from "@/lib/supabase/server";
+import { cacheTag } from "next/cache";
+
+import { getPublicSupabase } from "@/lib/supabase/public";
 
 import type { SiteSettingsRow } from "@/lib/db/types";
 
@@ -7,7 +9,10 @@ import type { SiteSettingsRow } from "@/lib/db/types";
  * (fallback ke konten lama di sisi pemanggil).
  */
 export async function getPublicSiteSettings(): Promise<SiteSettingsRow | null> {
-  const supabase = await createServerSupabase();
+  "use cache";
+  cacheTag("public-settings");
+
+  const supabase = getPublicSupabase();
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")

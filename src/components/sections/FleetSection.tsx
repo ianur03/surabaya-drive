@@ -1,7 +1,8 @@
-import { vehicles } from "@/data/vehicles";
 import { VehicleCard } from "@/components/fleet/VehicleCard";
 
-export function FleetSection() {
+import type { Vehicle } from "@/types/vehicle";
+
+export function FleetSection({ vehicles }: { vehicles: Vehicle[] }) {
   return (
     <section id="armada" className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">

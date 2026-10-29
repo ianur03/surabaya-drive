@@ -1,10 +1,15 @@
-import { createServerSupabase } from "@/lib/supabase/server";
+import { cacheTag } from "next/cache";
+
+import { getPublicSupabase } from "@/lib/supabase/public";
 
 import type { FaqRow } from "@/lib/db/types";
 
 /** FAQ untuk publik: hanya yang dipublikasikan. */
 export async function getPublishedFaqs(): Promise<FaqRow[]> {
-  const supabase = await createServerSupabase();
+  "use cache";
+  cacheTag("public-faqs");
+
+  const supabase = getPublicSupabase();
   const { data, error } = await supabase
     .from("faqs")
     .select("*")
