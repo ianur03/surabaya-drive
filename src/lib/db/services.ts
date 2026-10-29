@@ -1,6 +1,7 @@
 import { cacheTag } from "next/cache";
 
 import { getPublicSupabase } from "@/lib/supabase/public";
+import { createServerSupabase } from "@/lib/supabase/server";
 
 import type { ServiceRow } from "@/lib/db/types";
 
@@ -18,4 +19,29 @@ export async function getPublicServices(): Promise<ServiceRow[]> {
 
   if (error) throw error;
   return data ?? [];
+}
+
+/** Semua layanan (admin). */
+export async function adminListServices(): Promise<ServiceRow[]> {
+  const supabase = await createServerSupabase();
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+/** Satu layanan (admin). */
+export async function adminGetService(id: string): Promise<ServiceRow | null> {
+  const supabase = await createServerSupabase();
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return null;
+  return data;
 }

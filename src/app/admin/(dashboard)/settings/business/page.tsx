@@ -1,5 +1,17 @@
-import { Placeholder } from "@/components/admin/Placeholder";
+import { adminGetSettings } from "@/lib/db/settings";
+import { updateSettings } from "./actions";
+import { SettingsForm } from "@/components/admin/SettingsForm";
 
-export default function SettingsBusinessPage() {
-  return <Placeholder title="Pengaturan Bisnis" phase="Fase 4" />;
+export default async function SettingsBusinessPage() {
+  const settings = await adminGetSettings();
+
+  return (
+    <div>
+      <h1 className="text-xl font-semibold text-slate-900">Pengaturan Bisnis & SEO</h1>
+      <p className="mt-1 text-sm text-slate-600">
+        Mengubah kontak, mode demo/live, dan metadata SEO website publik.
+      </p>
+      <SettingsForm action={updateSettings} initial={settings} />
+    </div>
+  );
 }

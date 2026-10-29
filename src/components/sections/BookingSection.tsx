@@ -9,9 +9,24 @@ import { useBooking } from "@/components/booking/BookingProvider";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { BookingSummary } from "@/components/booking/BookingSummary";
 
-import type { BookingFormValues, ServiceType, Vehicle } from "@/types/vehicle";
+import type {
+  BookingFormValues,
+  Service,
+  ServiceType,
+  Vehicle,
+} from "@/types/vehicle";
 
-export function BookingSection({ vehicles }: { vehicles: Vehicle[] }) {
+export function BookingSection({
+  vehicles,
+  services,
+  whatsappNumber,
+  siteMode,
+}: {
+  vehicles: Vehicle[];
+  services: Service[];
+  whatsappNumber: string | null;
+  siteMode: "demo" | "live";
+}) {
   const { selectedVehicleId, selectedService } = useBooking();
   const [step, setStep] = useState<"form" | "summary">("form");
   const [values, setValues] = useState<BookingFormValues | null>(null);
@@ -78,12 +93,20 @@ export function BookingSection({ vehicles }: { vehicles: Vehicle[] }) {
 
         <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
           {step === "form" ? (
-            <BookingForm form={form} onSubmit={handleValid} vehicles={vehicles} />
+            <BookingForm
+              form={form}
+              onSubmit={handleValid}
+              vehicles={vehicles}
+              services={services}
+            />
           ) : values ? (
             <BookingSummary
               values={values}
               onBack={() => setStep("form")}
               vehicles={vehicles}
+              services={services}
+              whatsappNumber={whatsappNumber}
+              siteMode={siteMode}
             />
           ) : null}
         </div>

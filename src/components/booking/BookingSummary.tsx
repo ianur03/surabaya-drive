@@ -1,25 +1,28 @@
 "use client";
 
-import { getServiceById } from "@/data/services";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/booking";
-import { getWhatsAppNumber, isDemoWhatsAppNumber } from "@/lib/site";
 import { formatDateLong } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/button";
 
-import type { BookingFormValues, Vehicle } from "@/types/vehicle";
+import type { BookingFormValues, Service, Vehicle } from "@/types/vehicle";
 
 export function BookingSummary({
   values,
   onBack,
   vehicles,
+  services,
+  whatsappNumber,
+  siteMode,
 }: {
   values: BookingFormValues;
   onBack: () => void;
   vehicles: Vehicle[];
+  services: Service[];
+  whatsappNumber: string | null;
+  siteMode: "demo" | "live";
 }) {
   const vehicle = vehicles.find((v) => v.id === values.vehicleId);
-  const service = getServiceById(values.service);
-  const whatsappNumber = getWhatsAppNumber();
+  const service = services.find((s) => s.id === values.service);
 
   const message =
     vehicle && service
@@ -87,11 +90,9 @@ export function BookingSummary({
         </button>
       </div>
 
-      {isDemoWhatsAppNumber() && whatsappNumber && (
+      {siteMode === "demo" && whatsappNumber && (
         <p className="mt-4 text-xs text-slate-500">
-          Nomor WhatsApp memakai angka demo. Ganti lewat variabel{" "}
-          <code className="rounded bg-slate-100 px-1">NEXT_PUBLIC_WHATSAPP_NUMBER</code>{" "}
-          sebelum dipakai sungguhan.
+          Website ini masih dalam mode demo. Nomor WhatsApp adalah contoh.
         </p>
       )}
     </div>

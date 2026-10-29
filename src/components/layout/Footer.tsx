@@ -1,4 +1,5 @@
 import { getWhatsAppNumber, siteConfig } from "@/lib/site";
+import { getPublicSiteSettings } from "@/lib/db/settings";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
 
 const navItems = [
@@ -9,8 +10,19 @@ const navItems = [
   { href: "#faq", label: "FAQ" },
 ];
 
-export function Footer() {
-  const whatsappNumber = getWhatsAppNumber();
+export async function Footer() {
+  let settings = null;
+  try {
+    settings = await getPublicSiteSettings();
+  } catch {
+    // fallback ke default
+  }
+
+  const businessName = settings?.business_name ?? siteConfig.name;
+  const whatsappNumber = settings?.whatsapp_number ?? getWhatsAppNumber();
+  const serviceArea = settings?.service_area ?? "Surabaya";
+  const footerText = settings?.footer_text ?? "";
+  const siteMode = settings?.site_mode ?? "demo";
 
   return (
     <footer className="border-t border-slate-200 bg-slate-50">
@@ -18,10 +30,10 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <p className="text-base font-semibold tracking-tight text-slate-900">
-              Surabaya Drive
+              {businessName}
             </p>
             <p className="mt-3 max-w-xs text-sm leading-6 text-slate-600">
-              Website demo rental mobil di Surabaya. Menyediakan informasi
+              Website demo rental mobil di {serviceArea}. Menyediakan informasi
               armada dan pilihan layanan lepas kunci serta dengan sopir.
             </p>
           </div>
@@ -45,7 +57,7 @@ export function Footer() {
           <div>
             <p className="text-sm font-semibold text-slate-900">Kontak</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
-              <li>Wilayah layanan: Surabaya</li>
+              <li>Wilayah layanan: {serviceArea}</li>
               <li>
                 {whatsappNumber ? (
                   <a
@@ -54,7 +66,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     className="hover:text-slate-900"
                   >
-                    WhatsApp: {siteConfig.whatsappDisplay}
+                    WhatsApp: {whatsappNumber}
                   </a>
                 ) : (
                   <span>Nomor WhatsApp belum dikonfigurasi</span>
@@ -65,8 +77,12 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© <CopyrightYear /> {siteConfig.name}.</p>
-          <p>Proyek demo (portofolio) — bukan layanan rental yang beroperasi.</p>
+          <p>© <CopyrightYear /> {businessName}.</p>
+          <p>
+            {siteMode === "demo"
+              ? "Proyek demo (portofolio) — bukan layanan rental yang beroperasi."
+              : footerText}
+          </p>
         </div>
       </div>
     </footer>

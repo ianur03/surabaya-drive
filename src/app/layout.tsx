@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { getPublicSiteSettings } from "@/lib/db/settings";
 import { siteConfig } from "@/lib/site";
 
 const geistSans = Geist({
@@ -16,19 +17,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: `${siteConfig.name} — Rental Mobil di Surabaya`,
-  description: siteConfig.description,
-  openGraph: {
-    type: "website",
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: `${siteConfig.name} — Rental Mobil di Surabaya`,
-    description: siteConfig.description,
-    locale: "id_ID",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  let settings = null;
+  try {
+    settings = await getPublicSiteSettings();
+  } catch {
+    // fallback ke default
+  }
+
+  const title =
+    settings?.default_seo_title ??
+    `${siteConfig.name} — Rental Mobil di Surabaya`;
+  const description = settings?.default_seo_description ?? siteConfig.description;
+
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      url: siteConfig.url,
+      siteName: settings?.business_name ?? siteConfig.name,
+      title,
+      description,
+      locale: "id_ID",
+    },
+  };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

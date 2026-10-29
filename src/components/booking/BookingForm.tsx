@@ -3,11 +3,10 @@
 import type { ReactNode } from "react";
 import type { UseFormReturn } from "react-hook-form";
 
-import { services } from "@/data/services";
 import { buttonClass } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { BookingSchemaInput } from "@/lib/booking";
-import type { Vehicle } from "@/types/vehicle";
+import type { Service, Vehicle } from "@/types/vehicle";
 
 const inputClass =
   "block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
@@ -18,6 +17,7 @@ type Props = {
   form: UseFormReturn<BookingSchemaInput>;
   onSubmit: (data: BookingSchemaInput) => void;
   vehicles: Vehicle[];
+  services: Service[];
 };
 
 function Field({
@@ -55,7 +55,7 @@ function Field({
   );
 }
 
-export function BookingForm({ form, onSubmit, vehicles }: Props) {
+export function BookingForm({ form, onSubmit, vehicles, services }: Props) {
   const {
     register,
     handleSubmit,

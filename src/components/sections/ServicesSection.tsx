@@ -1,10 +1,11 @@
 "use client";
 
-import { services } from "@/data/services";
 import { buttonClass } from "@/components/ui/button";
 import { useBooking } from "@/components/booking/BookingProvider";
 
-export function ServicesSection() {
+import type { Service } from "@/types/vehicle";
+
+export function ServicesSection({ services }: { services: Service[] }) {
   const { startBooking } = useBooking();
 
   return (
