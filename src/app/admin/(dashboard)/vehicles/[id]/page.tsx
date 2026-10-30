@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { adminGetVehicle } from "@/lib/db/vehicles";
+import { adminGetVehicle, adminListVehicleImages } from "@/lib/db/vehicles";
 import { updateVehicle } from "../actions";
 import { VehicleForm } from "@/components/admin/VehicleForm";
 
@@ -14,6 +14,8 @@ export default async function EditVehiclePage({
 
   if (!vehicle) notFound();
 
+  const images = await adminListVehicleImages(id);
+
   return (
     <div>
       <h1 className="text-xl font-semibold text-slate-900">
@@ -22,6 +24,7 @@ export default async function EditVehiclePage({
       <VehicleForm
         action={updateVehicle.bind(null, id)}
         initial={vehicle}
+        existingImages={images}
         submitLabel="Simpan Perubahan"
       />
     </div>

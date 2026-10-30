@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    serverActions: {
+      // Izinkan upload gambar (hero + galeri) lewat Server Action.
+      bodySizeLimit: "40mb",
+    },
+  },
   turbopack: {
     rules: {
       "*.css": {

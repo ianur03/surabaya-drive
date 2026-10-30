@@ -3,7 +3,7 @@ import { cacheTag } from "next/cache";
 import { getPublicSupabase } from "@/lib/supabase/public";
 import { createServerSupabase } from "@/lib/supabase/server";
 
-import type { VehicleRow } from "@/lib/db/types";
+import type { VehicleImageRow, VehicleRow } from "@/lib/db/types";
 
 /** Katalog kendaraan untuk publik: hanya yang berstatus `active`. */
 export async function getPublicVehicles(): Promise<VehicleRow[]> {
@@ -45,4 +45,19 @@ export async function adminGetVehicle(id: string): Promise<VehicleRow | null> {
 
   if (error) return null;
   return data;
+}
+
+/** Galeri gambar untuk satu kendaraan (admin), urut berdasarkan sort_order. */
+export async function adminListVehicleImages(
+  vehicleId: string,
+): Promise<VehicleImageRow[]> {
+  const supabase = await createServerSupabase();
+  const { data, error } = await supabase
+    .from("vehicle_images")
+    .select("*")
+    .eq("vehicle_id", vehicleId)
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
 }

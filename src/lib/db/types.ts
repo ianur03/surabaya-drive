@@ -93,3 +93,13 @@ export type BookingRow = {
   created_at: string;
   updated_at: string;
 };
+
+export type VehicleImageRow = {
+  id: string;
+  vehicle_id: string;
+  image_path: string;
+  alt_text: string | null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
