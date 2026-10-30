@@ -16,6 +16,8 @@ function parseVehicle(formData: FormData) {
     model: formData.get("model") ?? "",
     category: formData.get("category"),
     transmission: formData.get("transmission"),
+    fuel_type: formData.get("fuel_type"),
+    driver_service_available: formData.get("driver_service_available") === "on",
     passenger_capacity: formData.get("passenger_capacity"),
     color: formData.get("color") ?? "#0f766e",
     daily_price_without_driver: formData.get("daily_price_without_driver"),

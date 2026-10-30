@@ -17,6 +17,8 @@ export function mapVehicleRow(row: VehicleRow): Vehicle {
     color: row.color ?? "#0f766e",
     capacity: row.passenger_capacity,
     transmission: (row.transmission as Transmission) ?? "Manual",
+    fuelType: row.fuel_type ?? "Bensin",
+    driverServiceAvailable: row.driver_service_available ?? false,
     pricePerDay: row.daily_price_without_driver ?? 0,
     priceWithDriver: row.daily_price_with_driver,
   };

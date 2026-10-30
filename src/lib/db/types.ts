@@ -26,6 +26,8 @@ export type VehicleRow = {
   features: string[];
   color: string | null;
   image_url: string | null;
+  fuel_type: string;
+  driver_service_available: boolean;
   daily_price_without_driver: number | null;
   daily_price_with_driver: number | null;
   status: VehicleStatus;

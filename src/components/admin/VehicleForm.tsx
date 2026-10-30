@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 
+import { FUEL_TYPES } from "@/lib/validators/vehicle";
 import type { VehicleActionState } from "@/app/admin/(dashboard)/vehicles/actions";
 import type { VehicleRow } from "@/lib/db/types";
 
@@ -73,6 +74,20 @@ export function VehicleForm({
               <option key={t} value={t}>{t}</option>
             ))}
           </select>
+        </label>
+
+        <label className="block">
+          <span className="text-sm font-medium text-slate-800">Bahan bakar *</span>
+          <select name="fuel_type" defaultValue={initial?.fuel_type ?? "Bensin"} className={inputClass + " mt-1.5"}>
+            {FUEL_TYPES.map((f) => (
+              <option key={f} value={f}>{f}</option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex items-center gap-2 pt-6">
+          <input name="driver_service_available" type="checkbox" defaultChecked={initial?.driver_service_available ?? false} className="h-4 w-4 accent-teal-700" />
+          <span className="text-sm font-medium text-slate-800">Layanan sopir tersedia</span>
         </label>
 
         <label className="block">

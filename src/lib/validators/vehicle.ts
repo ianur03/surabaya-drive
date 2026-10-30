@@ -3,6 +3,10 @@ import { z } from "zod";
 /**
  * Skema validasi kendaraan (admin). Dipakai di server action (bukan hanya form).
  */
+/** Pilihan bahan bakar kendaraan yang didukung. */
+export const FUEL_TYPES = ["Bensin", "Diesel", "Hybrid", "Listrik"] as const;
+export type FuelType = (typeof FUEL_TYPES)[number];
+
 export const vehicleSchema = z.object({
   name: z.string().trim().min(1, "Nama wajib diisi"),
   slug: z
@@ -14,6 +18,8 @@ export const vehicleSchema = z.object({
   model: z.string().trim().default(""),
   category: z.enum(["MPV", "City Car", "Sedan", "SUV"]),
   transmission: z.enum(["Manual", "Automatic"]),
+  fuel_type: z.enum(FUEL_TYPES),
+  driver_service_available: z.boolean().default(false),
   passenger_capacity: z.coerce
     .number()
     .int("Kapasitas harus bilangan bulat")

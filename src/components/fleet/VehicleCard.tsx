@@ -33,6 +33,8 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         <ul className="mt-2 space-y-1 text-sm text-slate-600">
           <li>Kapasitas {vehicle.capacity} penumpang</li>
           <li>Transmisi {vehicle.transmission}</li>
+          <li>Bahan bakar {vehicle.fuelType}</li>
+          {vehicle.driverServiceAvailable && <li>Sopir tersedia</li>}
         </ul>
 
         <div className="mt-auto flex items-end justify-between gap-4 pt-6">

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { vehicleSchema } from "./vehicle";
+import { FUEL_TYPES, vehicleSchema } from "./vehicle";
 
 function valid() {
   return {
@@ -10,6 +10,8 @@ function valid() {
     model: "Avanza",
     category: "MPV",
     transmission: "Manual",
+    fuel_type: "Bensin",
+    driver_service_available: true,
     passenger_capacity: 7,
     color: "#0f766e",
     daily_price_without_driver: 350_000,
@@ -43,5 +45,16 @@ describe("vehicleSchema", () => {
   it("menolak kategori yang tidak dikenal", () => {
     const r = vehicleSchema.safeParse({ ...valid(), category: "Truk" });
     expect(r.success).toBe(false);
+  });
+
+  it("menolak bahan bakar yang tidak dikenal", () => {
+    const r = vehicleSchema.safeParse({ ...valid(), fuel_type: "Solar" });
+    expect(r.success).toBe(false);
+  });
+
+  it("lolos untuk semua jenis bahan bakar yang didukung", () => {
+    for (const f of FUEL_TYPES) {
+      expect(vehicleSchema.safeParse({ ...valid(), fuel_type: f }).success).toBe(true);
+    }
   });
 });

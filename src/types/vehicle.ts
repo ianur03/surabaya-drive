@@ -12,6 +12,10 @@ export type Vehicle = {
   color: string;
   capacity: number;
   transmission: Transmission;
+  /** Bahan bakar kendaraan (Bensin/Diesel/Hybrid/Listrik). */
+  fuelType: string;
+  /** Apakah kendaraan ini mendukung layanan dengan sopir. */
+  driverServiceAvailable: boolean;
   /** Harga per hari (lepas kunci). */
   pricePerDay: number;
   /** Harga per hari dengan sopir (null = dikonfirmasi manual). */

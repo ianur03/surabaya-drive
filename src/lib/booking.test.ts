@@ -12,6 +12,8 @@ const vehicle: Vehicle = {
   color: "#0f766e",
   capacity: 7,
   transmission: "Manual",
+  fuelType: "Bensin",
+  driverServiceAvailable: true,
   pricePerDay: 350_000,
   priceWithDriver: null,
 };
