@@ -19,51 +19,63 @@ export function ServiceForm({
   initial,
 }: {
   action: FormAction;
-  initial: ServiceRow;
+  initial?: ServiceRow | null;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
+
+  const name = initial?.name ?? "";
+  const slug = initial?.slug ?? "";
+  const shortName = initial?.short_name ?? "";
+  const sortOrder = initial?.sort_order ?? 0;
+  const description = initial?.description ?? "";
+  const benefits = initial?.benefits ?? [];
+  const isActive = initial ? initial.status === "published" : true;
 
   return (
     <form action={formAction} className="mt-6 max-w-2xl">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium text-slate-800">Nama *</span>
-          <input name="name" required defaultValue={initial.name} className={inputClass + " mt-1.5"} />
+          <input name="name" required defaultValue={name} className={inputClass + " mt-1.5"} />
         </label>
 
         <label className="block">
           <span className="text-sm font-medium text-slate-800">Slug *</span>
-          <input name="slug" required defaultValue={initial.slug} className={inputClass + " mt-1.5"} />
+          <input name="slug" required defaultValue={slug} className={inputClass + " mt-1.5"} placeholder="layanan-baru" />
         </label>
 
         <label className="block">
           <span className="text-sm font-medium text-slate-800">Nama singkat *</span>
-          <input name="short_name" required defaultValue={initial.short_name} className={inputClass + " mt-1.5"} />
+          <input name="short_name" required defaultValue={shortName} className={inputClass + " mt-1.5"} />
         </label>
 
         <label className="block">
           <span className="text-sm font-medium text-slate-800">Urutan tampil</span>
-          <input name="sort_order" type="number" defaultValue={initial.sort_order} className={inputClass + " mt-1.5"} />
+          <input name="sort_order" type="number" defaultValue={sortOrder} className={inputClass + " mt-1.5"} />
         </label>
 
         <label className="block sm:col-span-2">
           <span className="text-sm font-medium text-slate-800">Deskripsi *</span>
-          <textarea name="description" required rows={2} defaultValue={initial.description} className={inputClass + " mt-1.5"} />
+          <textarea name="description" required rows={2} defaultValue={description} className={inputClass + " mt-1.5"} />
         </label>
 
         <label className="block sm:col-span-2">
           <span className="text-sm font-medium text-slate-800">Poin manfaat (satu per baris) *</span>
-          <textarea name="benefits" required rows={4} defaultValue={initial.benefits.join("\n")} className={inputClass + " mt-1.5"} />
+          <textarea name="benefits" required rows={4} defaultValue={benefits.join("\n")} className={inputClass + " mt-1.5"} />
         </label>
 
-        <label className="block">
-          <span className="text-sm font-medium text-slate-800">Status *</span>
-          <select name="status" defaultValue={initial.status} className={inputClass + " mt-1.5"}>
-            <option value="draft">Draft</option>
-            <option value="published">Terbit</option>
-            <option value="archived">Arsip</option>
-          </select>
-        </label>
+        <div className="flex items-center gap-4 pt-1">
+          <label className="relative inline-flex cursor-pointer items-center gap-3">
+            <input
+              name="is_active"
+              type="checkbox"
+              defaultChecked={isActive}
+              className="peer sr-only"
+            />
+            <span className="relative h-6 w-11 rounded-full bg-slate-300 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-transform peer-checked:bg-teal-600 peer-checked:after:translate-x-5" />
+            <span className="text-sm font-medium text-slate-800">Aktif</span>
+          </label>
+        </div>
       </div>
 
       {state?.error && (

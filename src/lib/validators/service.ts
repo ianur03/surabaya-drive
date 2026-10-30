@@ -15,3 +15,10 @@ export const serviceSchema = z.object({
 });
 
 export type ServiceInput = z.infer<typeof serviceSchema>;
+
+/** Petakan toggle aktif/nonaktif ke status simpan: aktif = published, nonaktif = draft. */
+export function serviceStatusFromActive(
+  active: boolean,
+): "published" | "draft" {
+  return active ? "published" : "draft";
+}
