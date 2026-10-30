@@ -73,3 +73,40 @@ Format: konteks → keputusan → alasan → konsekuensi.
 - **Keputusan**: `site_settings.site_mode` default `demo`; label demo tampil selama mode demo.
 - **Alasan**: integritas informasi publik; keputusan operasional ada di tangan pemilik.
 - **Konsekuensi**: tombol/penjelasan mode live hanya di area pengaturan sensitif.
+
+## D-010: `slug` = kode kendaraan (tanpa kolom `vehicle_code` baru)
+
+- **Konteks**: PRD FR-02 meminta "kode kendaraan" unik; model data PRD §7 menyarankan `vehicle_code`.
+  Repo sudah punya kolom `slug` unik + tervalidasi (regex + 23505).
+- **Keputusan**: pakai `slug` sebagai kode unik kendaraan (label form "Kode kendaraan (slug)"),
+  tanpa menambah kolom duplikat. Menolak duplikat sudah ada lewat handler `23505`.
+- **Alasan**: "jangan membuat duplikasi jika entitas serupa sudah ada" (PRD §7/§9); opsi paling
+  sederhana & aman.
+- **Konsekuensi**: kode kendaraan = slug (huruf kecil + angka + `-`), bukan format bebas.
+
+## D-011: Gambar kendaraan — hero di `vehicles.image_url`, galeri di tabel `vehicle_images`
+
+- **Konteks**: FR-01 butuh 1 hero + 0..n galeri. Schema lama cuma punya `image_url`.
+- **Keputusan**: hero disimpan di kolom `vehicles.image_url` (nullable, wajib hanya untuk status
+  aktif), galeri di tabel `vehicle_images` (FK cascade). File di bucket publik `public-assets`,
+  DB menyimpan URL/path. Batas: JPEG/PNG/WebP, max 5 MB/file, max 6 gambar galeri.
+- **Alasan**: sesuai rekomendasi model PRD §7; DB tidak menyimpan binary.
+- **Konsekuensi**: file lama dihapus dari storage HANYA setelah update DB sukses.
+
+## D-012: Status layanan — aktif = `published`, nonaktif = `draft`
+
+- **Konteks**: FR-03 minta toggle aktif/nonaktif + hapus permanen. Enum existing:
+  `draft/published/archived`.
+- **Keputusan**: toggle "Aktif" memetakan `published`↔`draft`; nonaktif = draft (tidak menghapus
+  data). Hapus permanen = `DELETE` baris dengan konfirmasi (`window.confirm`).
+- **Alasan**: reuse enum existing; `archived` tidak dipakai di UI layanan.
+- **Konsekuensi**: hanya `published` yang tampil publik (sudah ada filter).
+
+## D-013: Tema gelap admin — class `.dark` di `<html>`, preferensi via localStorage
+
+- **Konteks**: FR-05 minta toggle tema dashboard yang tersimpan & menghormati sistem.
+- **Keputusan**: Tailwind v4 `@custom-variant dark` (class-based, bukan media query). Kelas `.dark`
+  ditoggle di `<html>` oleh `ThemeToggle`; preferensi disimpan di `localStorage`, fallback ke
+  `prefers-color-scheme`. Halaman publik tidak memakai varian `dark:` sehingga tidak berubah.
+- **Alasan**: tanpa dependency baru; CSS class-based paling sederhana & tetap prerenderable.
+- **Konsekuensi**: halaman login tetap terang (di luar ruang lingkup "dashboard"; bisa disamakan).

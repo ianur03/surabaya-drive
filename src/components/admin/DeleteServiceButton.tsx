@@ -25,7 +25,7 @@ export function DeleteServiceButton({ id, name }: { id: string; name: string }) 
     <button
       type="button"
       onClick={handleDelete}
-      className="rounded-lg px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+      className="rounded-lg px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40"
     >
       Hapus
     </button>

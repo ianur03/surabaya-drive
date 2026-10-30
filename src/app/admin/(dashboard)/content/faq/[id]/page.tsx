@@ -16,7 +16,7 @@ export default async function EditFaqPage({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-slate-900">Edit FAQ</h1>
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-white">Edit FAQ</h1>
       <FaqForm action={updateFaq.bind(null, id)} initial={faq} />
     </div>
   );

@@ -16,7 +16,7 @@ export default async function EditServicePage({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-slate-900">
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-white">
         Edit Layanan — {service.name}
       </h1>
       <ServiceForm action={updateService.bind(null, id)} initial={service} />

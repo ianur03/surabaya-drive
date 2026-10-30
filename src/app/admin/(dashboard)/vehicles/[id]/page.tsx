@@ -18,7 +18,7 @@ export default async function EditVehiclePage({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-slate-900">
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-white">
         Edit Kendaraan — {vehicle.name}
       </h1>
       <VehicleForm

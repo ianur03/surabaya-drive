@@ -55,17 +55,17 @@ export function BookingActions({ booking }: { booking: BookingWithVehicle }) {
   }
 
   const inputClass =
-    "block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
+    "block w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-white focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           Status
         </h2>
         <form action={handleStatus} className="mt-4 flex items-end gap-3">
           <div className="flex-1">
-            <label htmlFor="status" className="block text-xs text-slate-500">
+            <label htmlFor="status" className="block text-xs text-slate-500 dark:text-slate-400">
               Ubah status
             </label>
             <select id="status" name="status" defaultValue={booking.status} className={inputClass + " mt-1"}>
@@ -83,23 +83,23 @@ export function BookingActions({ booking }: { booking: BookingWithVehicle }) {
           </button>
         </form>
         {statusError && (
-          <p role="alert" className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p role="alert" className="mt-3 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 px-3 py-2 text-sm text-red-700 dark:text-red-400">
             {statusError}
           </p>
         )}
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           Catatan Internal & Harga
         </h2>
         <form action={handleDetails} className="mt-4 space-y-4">
           <label className="block">
-            <span className="text-xs text-slate-500">Catatan admin (tidak terlihat pelanggan)</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Catatan admin (tidak terlihat pelanggan)</span>
             <textarea name="admin_notes" rows={3} defaultValue={booking.admin_notes ?? ""} className={inputClass + " mt-1"} />
           </label>
           <label className="block">
-            <span className="text-xs text-slate-500">Total harga (Rp)</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Total harga (Rp)</span>
             <input name="quoted_total" type="number" min={0} defaultValue={booking.quoted_total ?? ""} className={inputClass + " mt-1"} placeholder="Ditentukan manual oleh admin" />
           </label>
           <button
@@ -111,7 +111,7 @@ export function BookingActions({ booking }: { booking: BookingWithVehicle }) {
           </button>
         </form>
         {detailError && (
-          <p role="alert" className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p role="alert" className="mt-3 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 px-3 py-2 text-sm text-red-700 dark:text-red-400">
             {detailError}
           </p>
         )}

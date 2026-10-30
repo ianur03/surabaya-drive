@@ -17,7 +17,7 @@ export default async function VehiclesPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-slate-900">Kendaraan</h1>
+        <h1 className="text-xl font-semibold text-slate-900 dark:text-white">Kendaraan</h1>
         <Link
           href="/admin/vehicles/new"
           className="rounded-full bg-teal-700 px-5 py-2 text-sm font-semibold text-white hover:bg-teal-800"
@@ -27,13 +27,13 @@ export default async function VehiclesPage() {
       </div>
 
       {vehicles.length === 0 ? (
-        <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-sm text-slate-600">
+        <div className="mt-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 p-8 text-sm text-slate-600 dark:text-slate-300">
           Belum ada kendaraan. Tambahkan yang pertama.
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-slate-200 text-xs uppercase text-slate-500">
+            <thead className="border-b border-slate-200 dark:border-slate-700 text-xs uppercase text-slate-500 dark:text-slate-400">
               <tr>
                 <th className="px-4 py-3 font-medium">Nama</th>
                 <th className="px-4 py-3 font-medium">Kategori</th>
@@ -44,20 +44,20 @@ export default async function VehiclesPage() {
                 <th className="px-4 py-3 font-medium text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {vehicles.map((v) => (
-                <tr key={v.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-3 font-medium text-slate-900">{v.name}</td>
-                  <td className="px-4 py-3 text-slate-600">{v.category ?? "-"}</td>
-                  <td className="px-4 py-3 text-slate-600">{v.transmission}</td>
-                  <td className="px-4 py-3 text-slate-600">{v.passenger_capacity}</td>
-                  <td className="px-4 py-3 text-slate-600">
+                <tr key={v.id} className="hover:bg-slate-50 dark:hover:bg-slate-700">
+                  <td className="px-4 py-3 font-medium text-slate-900 dark:text-white">{v.name}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{v.category ?? "-"}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{v.transmission}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{v.passenger_capacity}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
                     {v.daily_price_without_driver != null
                       ? formatRupiah(Number(v.daily_price_without_driver))
                       : "-"}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
+                    <span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
                       {statusLabels[v.status] ?? v.status}
                     </span>
                   </td>
@@ -65,7 +65,7 @@ export default async function VehiclesPage() {
                     <div className="flex justify-end gap-2">
                       <Link
                         href={`/admin/vehicles/${v.id}`}
-                        className="rounded-lg px-3 py-1.5 text-sm font-medium text-teal-700 hover:bg-teal-50"
+                        className="rounded-lg px-3 py-1.5 text-sm font-medium text-teal-700 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/40"
                       >
                         Edit
                       </Link>

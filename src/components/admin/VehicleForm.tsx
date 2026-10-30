@@ -15,7 +15,7 @@ type FormAction = (
 ) => Promise<VehicleActionState>;
 
 const inputClass =
-  "block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
+  "block w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-white focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
 
 const categories = ["MPV", "City Car", "Sedan", "SUV"];
 const transmissions = ["Manual", "Automatic"];
@@ -102,11 +102,11 @@ export function VehicleForm({
   return (
     <form action={formAction} onSubmit={handleSubmit} className="mt-6 max-w-2xl">
       {/* ===== Gambar ===== */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5">
-        <p className="text-sm font-semibold text-slate-900">Gambar</p>
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+        <p className="text-sm font-semibold text-slate-900 dark:text-white">Gambar</p>
 
         <label className="mt-4 block">
-          <span className="text-sm font-medium text-slate-800">
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
             Gambar Hero (wajib untuk kendaraan aktif)
           </span>
           <input
@@ -114,7 +114,7 @@ export function VehicleForm({
             type="file"
             accept="image/jpeg,image/png,image/webp"
             onChange={handleHeroChange}
-            className="mt-1.5 block w-full text-sm text-slate-600 file:mr-3 file:rounded-full file:border-0 file:bg-teal-700 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-teal-800"
+            className="mt-1.5 block w-full text-sm text-slate-600 dark:text-slate-300 file:mr-3 file:rounded-full file:border-0 file:bg-teal-700 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-teal-800"
           />
         </label>
 
@@ -124,9 +124,9 @@ export function VehicleForm({
             <img
               src={heroPreview ?? initial?.image_url ?? ""}
               alt="Preview hero"
-              className="h-24 w-36 rounded-lg border border-slate-200 object-cover"
+              className="h-24 w-36 rounded-lg border border-slate-200 dark:border-slate-700 object-cover"
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {heroPreview
                 ? "Pratinjau gambar baru (belum tersimpan)."
                 : "Gambar hero tersimpan. Pilih file baru untuk menggantinya."}
@@ -135,7 +135,7 @@ export function VehicleForm({
         )}
 
         <label className="mt-4 block">
-          <span className="text-sm font-medium text-slate-800">
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
             Gambar Tambahan / Galeri (maks. {MAX_GALLERY_IMAGES})
           </span>
           <input
@@ -144,7 +144,7 @@ export function VehicleForm({
             accept="image/jpeg,image/png,image/webp"
             multiple
             onChange={handleGalleryChange}
-            className="mt-1.5 block w-full text-sm text-slate-600 file:mr-3 file:rounded-full file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200"
+            className="mt-1.5 block w-full text-sm text-slate-600 dark:text-slate-300 file:mr-3 file:rounded-full file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 dark:text-slate-200 hover:file:bg-slate-200"
           />
         </label>
 
@@ -156,7 +156,7 @@ export function VehicleForm({
                 <img
                   src={g.url}
                   alt={g.name}
-                  className="h-16 w-24 rounded-lg border border-slate-200 object-cover"
+                  className="h-16 w-24 rounded-lg border border-slate-200 dark:border-slate-700 object-cover"
                 />
               </div>
             ))}
@@ -165,14 +165,14 @@ export function VehicleForm({
 
         {existingImages.length > 0 && (
           <div className="mt-4 border-t border-slate-100 pt-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Galeri tersimpan — centang untuk menghapus
             </p>
             <div className="mt-2 flex flex-wrap gap-3">
               {existingImages.map((img) => (
                 <label
                   key={img.id}
-                  className="relative cursor-pointer rounded-lg border border-slate-200 p-1"
+                  className="relative cursor-pointer rounded-lg border border-slate-200 dark:border-slate-700 p-1"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -180,7 +180,7 @@ export function VehicleForm({
                     alt={img.alt_text ?? ""}
                     className="h-16 w-24 rounded-md object-cover"
                   />
-                  <span className="absolute right-1 top-1 flex items-center gap-1 rounded bg-white/90 px-1.5 py-0.5 text-xs text-red-600">
+                  <span className="absolute right-1 top-1 flex items-center gap-1 rounded bg-white dark:bg-slate-800/90 px-1.5 py-0.5 text-xs text-red-600 dark:text-red-400">
                     <input
                       type="checkbox"
                       name="remove_image_id"
@@ -199,27 +199,27 @@ export function VehicleForm({
       {/* ===== Data ===== */}
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Nama *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Nama *</span>
           <input name="name" required defaultValue={initial?.name ?? ""} className={inputClass + " mt-1.5"} placeholder="Toyota Avanza" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Kode kendaraan (slug) *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Kode kendaraan (slug) *</span>
           <input name="slug" required defaultValue={initial?.slug ?? ""} className={inputClass + " mt-1.5"} placeholder="toyota-avanza" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Brand *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Brand *</span>
           <input name="brand" required defaultValue={initial?.brand ?? ""} className={inputClass + " mt-1.5"} placeholder="Toyota" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Model</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Model</span>
           <input name="model" defaultValue={initial?.model ?? ""} className={inputClass + " mt-1.5"} placeholder="Avanza" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Kategori *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Kategori *</span>
           <select name="category" required defaultValue={initial?.category ?? "MPV"} className={inputClass + " mt-1.5"}>
             {categories.map((c) => (
               <option key={c} value={c}>{c}</option>
@@ -228,7 +228,7 @@ export function VehicleForm({
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Transmisi *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Transmisi *</span>
           <select name="transmission" required defaultValue={initial?.transmission ?? "Manual"} className={inputClass + " mt-1.5"}>
             {transmissions.map((t) => (
               <option key={t} value={t}>{t}</option>
@@ -237,7 +237,7 @@ export function VehicleForm({
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Bahan bakar *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Bahan bakar *</span>
           <select name="fuel_type" defaultValue={initial?.fuel_type ?? "Bensin"} className={inputClass + " mt-1.5"}>
             {FUEL_TYPES.map((f) => (
               <option key={f} value={f}>{f}</option>
@@ -246,27 +246,27 @@ export function VehicleForm({
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Kapasitas penumpang *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Kapasitas penumpang *</span>
           <input name="passenger_capacity" type="number" min={1} required defaultValue={initial?.passenger_capacity ?? 5} className={inputClass + " mt-1.5"} />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Warna ilustrasi</span>
-          <input name="color" type="color" defaultValue={initial?.color ?? "#0f766e"} className="mt-1.5 h-10 w-16 rounded border border-slate-300" />
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Warna ilustrasi</span>
+          <input name="color" type="color" defaultValue={initial?.color ?? "#0f766e"} className="mt-1.5 h-10 w-16 rounded border border-slate-300 dark:border-slate-600" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Harga lepas kunci/hari (Rp) *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Harga lepas kunci/hari (Rp) *</span>
           <input name="daily_price_without_driver" type="number" min={0} required defaultValue={initial?.daily_price_without_driver ?? ""} className={inputClass + " mt-1.5"} placeholder="350000" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Harga dengan sopir/hari (Rp)</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Harga dengan sopir/hari (Rp)</span>
           <input name="daily_price_with_driver" type="number" min={0} defaultValue={initial?.daily_price_with_driver ?? ""} className={inputClass + " mt-1.5"} placeholder="Kosongkan bila belum ada" />
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-800">Status *</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Status *</span>
           <select name="status" required defaultValue={initial?.status ?? "draft"} className={inputClass + " mt-1.5"}>
             {statuses.map((s) => (
               <option key={s.value} value={s.value}>{s.label}</option>
@@ -277,22 +277,22 @@ export function VehicleForm({
         <div className="flex items-center gap-4 pt-6">
           <label className="flex items-center gap-2">
             <input name="driver_service_available" type="checkbox" defaultChecked={initial?.driver_service_available ?? false} className="h-4 w-4 accent-teal-700" />
-            <span className="text-sm font-medium text-slate-800">Layanan sopir tersedia</span>
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Layanan sopir tersedia</span>
           </label>
           <label className="flex items-center gap-2">
             <input name="is_featured" type="checkbox" defaultChecked={initial?.is_featured ?? false} className="h-4 w-4 accent-teal-700" />
-            <span className="text-sm font-medium text-slate-800">Tampil unggulan</span>
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Tampil unggulan</span>
           </label>
         </div>
 
         <label className="block sm:col-span-2">
-          <span className="text-sm font-medium text-slate-800">Deskripsi</span>
+          <span className="text-sm font-medium text-slate-800 dark:text-slate-100">Deskripsi</span>
           <textarea name="description" rows={3} defaultValue={initial?.description ?? ""} className={inputClass + " mt-1.5"} />
         </label>
       </div>
 
       {error && (
-        <p role="alert" className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="mt-4 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 px-3 py-2 text-sm text-red-700 dark:text-red-400">
           {error}
         </p>
       )}
@@ -305,7 +305,7 @@ export function VehicleForm({
         >
           {pending ? "Menyimpan…" : submitLabel}
         </button>
-        <Link href="/admin/vehicles" className="rounded-full border border-slate-300 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+        <Link href="/admin/vehicles" className="rounded-full border border-slate-300 dark:border-slate-600 px-6 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
           Batal
         </Link>
       </div>

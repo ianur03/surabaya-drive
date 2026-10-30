@@ -27,13 +27,13 @@ export default async function BookingDetailPage({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-slate-900">
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-white">
         Booking {booking.booking_code}
       </h1>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
             Detail Permintaan
           </h2>
           <dl className="mt-4 space-y-3 text-sm">
@@ -59,8 +59,8 @@ export default async function BookingDetailPage({
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <dt className="text-xs text-slate-500">{label}</dt>
-      <dd className="text-slate-900">{value}</dd>
+      <dt className="text-xs text-slate-500 dark:text-slate-400">{label}</dt>
+      <dd className="text-slate-900 dark:text-white">{value}</dd>
     </div>
   );
 }

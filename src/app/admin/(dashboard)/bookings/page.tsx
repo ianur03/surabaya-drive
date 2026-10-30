@@ -29,19 +29,19 @@ export default async function BookingsPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-slate-900">Booking</h1>
-      <p className="mt-1 text-sm text-slate-600">
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-white">Booking</h1>
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
         Permintaan pemesanan dari formulir publik.
       </p>
 
       {bookings.length === 0 ? (
-        <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-sm text-slate-600">
+        <div className="mt-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 p-8 text-sm text-slate-600 dark:text-slate-300">
           Belum ada permintaan booking.
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-slate-200 text-xs uppercase text-slate-500">
+            <thead className="border-b border-slate-200 dark:border-slate-700 text-xs uppercase text-slate-500 dark:text-slate-400">
               <tr>
                 <th className="px-4 py-3 font-medium">Kode</th>
                 <th className="px-4 py-3 font-medium">Pelanggan</th>
@@ -51,22 +51,22 @@ export default async function BookingsPage() {
                 <th className="px-4 py-3 font-medium">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {bookings.map((b) => (
-                <tr key={b.id} className="hover:bg-slate-50">
+                <tr key={b.id} className="hover:bg-slate-50 dark:hover:bg-slate-700">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/bookings/${b.id}`} className="font-mono font-medium text-teal-700 hover:underline">
+                    <Link href={`/admin/bookings/${b.id}`} className="font-mono font-medium text-teal-700 dark:text-teal-400 hover:underline">
                       {b.booking_code}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-slate-900">{b.customer_name}</td>
-                  <td className="px-4 py-3 text-slate-600">{b.vehicles?.name ?? "-"}</td>
-                  <td className="px-4 py-3 text-slate-600">{serviceLabels[b.service_type] ?? b.service_type}</td>
-                  <td className="px-4 py-3 text-slate-600">
+                  <td className="px-4 py-3 text-slate-900 dark:text-white">{b.customer_name}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{b.vehicles?.name ?? "-"}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{serviceLabels[b.service_type] ?? b.service_type}</td>
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
                     {fmtDate(b.start_at)} → {fmtDate(b.end_at)}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
+                    <span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-xs font-medium text-slate-700 dark:text-slate-200">
                       {statusLabels[b.status] ?? b.status}
                     </span>
                   </td>
