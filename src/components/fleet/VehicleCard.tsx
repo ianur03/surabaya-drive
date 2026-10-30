@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CarIllustration } from "@/components/VehicleIllustration";
 import { buttonClass } from "@/components/ui/button";
 import { useBooking } from "@/components/booking/BookingProvider";
@@ -21,11 +22,29 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
             {vehicle.transmission}
           </span>
         </div>
-        <CarIllustration
-          color={vehicle.color}
-          label={`Ilustrasi ${vehicle.name}`}
-          className="mt-4 w-full"
-        />
+
+        {/*
+          Foto asli bila tersedia; kalau belum ada, kembali ke ilustrasi SVG.
+          Rasio gambar tetap agar grid tidak "melompat" saat sebagian kartu
+          punya foto dan sebagian masih ilustrasi.
+        */}
+        {vehicle.heroImageUrl ? (
+          <div className="relative mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl bg-slate-100">
+            <Image
+              src={vehicle.heroImageUrl}
+              alt={`Foto ${vehicle.name}`}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <CarIllustration
+            color={vehicle.color}
+            label={`Ilustrasi ${vehicle.name}`}
+            className="mt-4 w-full"
+          />
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-6">

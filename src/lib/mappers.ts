@@ -19,6 +19,7 @@ export function mapVehicleRow(row: VehicleRow): Vehicle {
     transmission: (row.transmission as Transmission) ?? "Manual",
     fuelType: row.fuel_type ?? "Bensin",
     driverServiceAvailable: row.driver_service_available ?? false,
+    heroImageUrl: row.image_url?.trim() || null,
     pricePerDay: row.daily_price_without_driver ?? 0,
     priceWithDriver: row.daily_price_with_driver,
   };

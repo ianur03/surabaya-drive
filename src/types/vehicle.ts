@@ -16,6 +16,8 @@ export type Vehicle = {
   fuelType: string;
   /** Apakah kendaraan ini mendukung layanan dengan sopir. */
   driverServiceAvailable: boolean;
+  /** URL publik foto hero di storage (null = belum ada foto, tampilkan ilustrasi). */
+  heroImageUrl: string | null;
   /** Harga per hari (lepas kunci). */
   pricePerDay: number;
   /** Harga per hari dengan sopir (null = dikonfirmasi manual). */

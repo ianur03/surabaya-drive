@@ -14,6 +14,7 @@ const vehicle: Vehicle = {
   transmission: "Manual",
   fuelType: "Bensin",
   driverServiceAvailable: true,
+  heroImageUrl: null,
   pricePerDay: 350_000,
   priceWithDriver: null,
 };
